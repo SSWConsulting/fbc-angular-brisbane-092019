@@ -19,7 +19,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.companies$ = this.getCompanies()
+    this.companies$ = this.getCompanies();
       // .subscribe(
       //   next => this.companies = next,
       //   error => console.log('ERROR', error),
