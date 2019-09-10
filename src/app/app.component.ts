@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'firebootcamp-crm';
+  title = 'firebootcamp-crm: Brisbane';
+
+  // titleChanged(e) {
+  //   this.title = e.target.value;
+  // }
+
 }
