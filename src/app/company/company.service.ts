@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Company } from './company';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -13,18 +13,27 @@ export class CompanyService {
 
   constructor(
     private httpClient: HttpClient
-  ) { }
+  ) {
+    this.loadCompanies();
+  }
 
-  getCompanies(): Observable<Company[]> {
-    return this.httpClient.get<Company[]>(`${this.API_BASE}/company`)
+  companies$: BehaviorSubject<Company[]> = new BehaviorSubject<Company[]>([]);
+
+  loadCompanies() {
+    this.httpClient.get<Company[]>(`${this.API_BASE}/company`)
     .pipe(
       catchError(this.errorHandler)
-    );
+    ).subscribe(c => this.companies$.next(c));
+  }
+
+  getCompanies(): Observable<Company[]> {
+    return this.companies$;
   }
 
   deleteCompany(company: Company) {
     console.log('Deleting Company');
-    return this.httpClient.delete<Company>(`${this.API_BASE}/company/${company.id}`);
+    this.httpClient.delete<Company>(`${this.API_BASE}/company/${company.id}`)
+    .subscribe(c => this.loadCompanies());
   }
 
   errorHandler(error: Error): Observable<Company[]> {

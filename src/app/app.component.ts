@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CompanyService } from './company/company.service';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -6,11 +9,23 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   title = 'firebootcamp-crm: Brisbane';
   myDate = new Date();
-  // titleChanged(e) {
-  //   this.title = e.target.value;
-  // }
+  companiesCount$: Observable<number>;
+
+
+  constructor(
+    private companyService: CompanyService
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.companiesCount$ = this.companyService.getCompanies()
+    .pipe(
+      map(c => c.length)
+    );
+  }
 
 }

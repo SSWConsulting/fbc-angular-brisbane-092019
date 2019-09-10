@@ -33,11 +33,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   deleteCompany(company: Company) {
-    this.companyService.deleteCompany(company)
-    .subscribe(c => {
-      console.log('company deleted');
-      this.companies$ = this.getCompanies();
-    });
+    this.companyService.deleteCompany(company);
   }
 
 }
