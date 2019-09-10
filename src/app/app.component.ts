@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'fbc-root',
   templateUrl: './app.component.html',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'firebootcamp-crm: Brisbane';
-
+  myDate = new Date();
   // titleChanged(e) {
   //   this.title = e.target.value;
   // }
