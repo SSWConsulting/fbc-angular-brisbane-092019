@@ -19,13 +19,25 @@ export class CompanyListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.companies$ = this.companyService.getCompanies();
+    this.companies$ = this.getCompanies()
       // .subscribe(
       //   next => this.companies = next,
       //   error => console.log('ERROR', error),
       //   () => console.log('Complete')
       //   );
 
+  }
+
+  getCompanies(): Observable<Company[]> {
+    return this.companyService.getCompanies();
+  }
+
+  deleteCompany(company: Company) {
+    this.companyService.deleteCompany(company)
+    .subscribe(c => {
+      console.log('company deleted');
+      this.companies$ = this.getCompanies();
+    });
   }
 
 }

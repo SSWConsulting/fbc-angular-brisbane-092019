@@ -22,7 +22,12 @@ export class CompanyService {
     );
   }
 
-  errorHandler(error: Error): Observable<Company[]>{
+  deleteCompany(company: Company) {
+    console.log('Deleting Company');
+    return this.httpClient.delete<Company>(`${this.API_BASE}/company/${company.id}`);
+  }
+
+  errorHandler(error: Error): Observable<Company[]> {
     console.error('Error caught');
     return new Observable();
   }
