@@ -52,13 +52,12 @@ export class CompanyEditComponent implements OnInit {
 
   saveCompany() {
     if (this.isNewCompany) {
-      this.companyService.addCompany(this.companyForm.value.name)
-      .subscribe(c => this.router.navigateByUrl('/company/list'));
+      this.companyService.addCompany(this.companyForm.value);
     } else {
       const newCompany = {...this.companyForm.value, id: this.companyId };
-      this.companyService.updateCompany(newCompany)
-        .subscribe(() => this.router.navigateByUrl('/company/list'));
+      this.companyService.updateCompany(newCompany);
     }
+    this.router.navigateByUrl('/company/list');
   }
 
 }
